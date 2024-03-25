@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>차트200</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+<div class="product-section">
+	<div class="container">
+		<div class="row">
+<!-- Start Blog Section -->
+<div class="blog-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-20 col-sm-2 col-md-4 mb-5" th:each="vo:${list}">
+				<div class="post-entry">
+				  <h3><a href="#" th:text="${vo.grank}"></a></h3>
+					<a th:href="@{/music/before_detail(gnum=${vo.gnum})}" class="post-thumbnail"><img th:src="${vo.image}" class="img-fluid" style="width:287px;height: 287px"></a>
+					<div class="post-content-entry">
+						<h3><a th:href="@{/music/before_detail(gnum=${vo.gnum})}" th:text="${vo.song}"></a></h3>
+						<div class="meta">
+							<span><a href="#" th:text="${vo.artist}"></a></span> <span th:text="${vo.gtitle}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<ul style="padding-left: 42%">
+  <li th:if="${startPage>1}" style="float: left;list-style-type: none"><a th:href="@{/music/chart(page=${startPage-1})}" style="text-decoration: none;font-size: x-large;font-weight: bold;color: #3b5d50">&laquo;</a></li>
+  <li th:class="${curpage==i?'current':''}" th:each="i:${#numbers.sequence(startPage,endPage)}" style="float:left;list-style-type: none;margin-left: 3%">
+    <a th:href="@{/music/chart(page=${i})}" th:text="${i}" style="text-decoration: none;font-size: x-large;color: #3b5d50"></a>
+  </li>
+  <li th:if="${endPage<totalpage}" style="float: left;list-style-type: none;margin-left: 3%"><a th:href="@{/music/chart(page=${endPage+1})}" style="text-decoration: none;font-size: x-large;font-weight: bold;color: #3b5d50">&raquo;</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<!-- End Blog Section -->
+</body>
+</html>

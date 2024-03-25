@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.form-control{
+	width:initial
+}
+tr{
+	border-color: #eff2f1;
+	border-width: 0px;
+	border-style: none;
+}
+</style>
+</head>
+<body>
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>커뮤니티</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="blog-section" style="margin-left: 14%">
+	<div class="container">
+		<div class="row">
+
+    <table class="table">
+    <tr>
+        <th width=15% class="text-center">번호</th>
+        <td width=85%>
+          <input type=text name=name size=1 class="form-control text-center" th:placeholder="${vo.no }" readonly>
+        </td>
+       </tr>
+       <tr>
+        <th width=15% class="text-center">이름</th>
+        <td width=85%>
+          <input type=text name=name size=15 class="form-control" th:placeholder="${vo.name }" readonly>
+        </td>
+       </tr>
+       <tr>
+        <th width=15% class="text-center">제목</th>
+        <td width=85%>
+          <input type=text name=subject size=50 class="form-control"th:placeholder="${vo.subject }" readonly>
+        </td>
+       </tr>
+       <tr>
+        <th width=15% class="text-center">내용</th>
+        <td width=85%>
+          <textarea rows="10" cols="52" name=content class="form-control"th:placeholder="${vo.content }" readonly></textarea>
+        </td>
+       </tr>
+      </table>
+<div style="height: 30px"></div>
+      <a href="/board/list"><input type=submit value="목록" class="btn btn-sm" style="margin-left: 35%;width:100px"></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+*{
+	box-sizing:content-box;
+}
+.feature{
+	width:500px
+}
+#mv:hover{
+	color: #3b5d50
+}
+</style>
+</head>
+<body>
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>차트200</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Hero Section -->
+		<!-- Start Why Choose Us Section -->
+		<div class="why-choose-section">
+			<div class="container">
+				<div class="row justify-content-between align-items-center">
+					<div class="col-lg-6">
+						<h2 class="section-title" th:text="|${vo.song} - ${vo.artist}|"></h2>
+						<div class="row my-5">
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<i class="fa fa-bars" aria-hidden="true"></i>
+									</div>
+									<h3 style="font-weight: bold">가사</h3>
+									<p th:text="${vo.gmusicdetail.lyric}"></p>
+								</div>
+							</div>
+							<div class="col-6 col-md-6">
+								<div class="feature">
+								</div>
+							</div>
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+									  <i class="fa fa-tags" aria-hidden="true"></i>
+									</div>
+									<h3>태그</h3>
+									<p th:text="${vo.gmusicdetail.tag}"></p>
+								</div>
+							</div>
+							<div class="col-6 col-md-6" style="margin-top: 5%">
+								<div class="feature">
+								<div class="icon">
+									  <i class="fa fa-video-camera" aria-hidden="true"></i>
+									</div>
+									<h3><a href="${vo.gmusicdetail.link}" style="text-decoration: none;" id="mv">MV 보기</a></h3>
+							    </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="img-wrap">
+							<img th:src="${vo.image}" alt="Image" class="img-fluid" style="width: 600px;height: 600px">
+						</div>
+					</div>
+<div style="height: 50px"></div>
+<table class="table">
+<h1>댓글</h1>
+    <tr>
+     <td>
+      <table class="table" th:each="rvo:${list}">
+        <tr>
+         <td align="left" th:text="|♬ ${rvo.name} ( ${rvo.regdate} )|" style="border-bottom-width: 0px"></td>
+         <td align="right" style="border-bottom-width: 0px">
+           <span th:if="${session.id==rvo.id}" class="inline">
+            <input type=button value="수정" class="btn btn-primary-hover-outline updates"
+              th:alt="${rvo.no}" style="height: 18px;width:32px"
+            >
+            <a th:href="@{/reply/delete(gnum=${rvo.gnum},no=${rvo.no})}" class="btn btn-xs btn-success"
+            	style="height: 18px;width:32px"
+            >삭제</a>
+           </span>
+         </td>
+        </tr>
+        <tr>
+         <td colspan="2" style="border-bottom-width: 0px">
+          <pre class="form-control" id="message" cols="20" rows="5" style="width: 700px" th:text="${rvo.msg}"></pre>
+         </td>
+        </tr>
+        <tr th:id="|u${rvo.no}|" class="ups" style="display:none">
+         <td colspan="2">
+             <form method="post" action="/reply/update">
+               <input type="hidden" name="no" th:value="${rvo.no}">
+		       <input type="hidden" name="gnum" th:value="${vo.gnum}">
+		       <textarea rows="5" cols="60" style="float: left" required name="msg" th:text="${rvo.msg}"></textarea>
+		       <input type=submit value="댓글수정" style="height:95px;width:100px;background-color: green">
+		      </form>
+         </td>
+        </tr>
+      </table>
+     </td>
+    </tr>
+   </table>
+   <table class="table" th:if="${session.id!=null}">
+    <tr>
+     <td style="border-bottom-width: 0px">
+      <form method="post" action="/reply/insert" style="width:1330px">
+       <input type="hidden" name="gnum" th:value="${vo.gnum}">
+       <textarea name="msg" class="form-control" id="message" cols="20" rows="5" required style="float: left;width: 700px"></textarea>
+       <input type=submit value="댓글쓰기" class="btn btn-primary-hover-outline" style="margin-left: 35%;margin-top: 7%">
+      </form>
+     </td>
+    </tr>
+   </table>
+<div style="height: 100px"></div>
+				<a href="javascript:history.back()" class="btn btn-primary-hover-outline" style="width:40px;margin-left: 45%">목록</a>
+				</div>
+			</div>
+		</div>
+		<!-- End Why Choose Us Section -->
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+h2 > a:hover{
+	color: #3b5d50
+}
+</style>
+</head>
+<body>
+<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Home</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+
+		<!-- Start Product Section -->
+		<div class="product-section">
+			<div class="container">
+			<h2 class="mb-4 section-title" style="font-weight: bold"><a href="/music/chart" style="text-decoration: none;">인기 차트</a></h2>
+				<div class="row">
+					<!-- Start Column 2 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" th:each="vo:${list}">
+						<a class="product-item" th:href="@{/music/detail(gnum=${vo.gnum})}">
+							<img th:src="${vo.image}" class="img-fluid product-thumbnail" style="border-radius: 20px">
+							<h3 class="product-title" th:text="${vo.artist}"></h3>
+							<strong class="product-price" th:text="${vo.song}"></strong>
+						</a>
+					</div> 
+					<!-- End Column 2 -->
+
+				</div>
+			</div>
+		</div>
+		<!-- End Product Section -->
+
+		<!-- Start We Help Section -->
+		<div class="we-help-section">
+			<div class="container">
+				<div class="row justify-content-between" th:each="vo:${nList}">
+					<div class="col-lg-7 mb-5 mb-lg-0">
+						<div class="imgs-grid">
+							<div class="grid grid-1"><img th:src="${vo.poster}" style="width:497px;height: 450px"></div>
+							<div class="grid grid-3"><img th:src="${vo.poster2}" style="width:300px;height: 300px"></div>
+						</div>
+					</div>
+					<div class="col-lg-5 ps-lg-5">
+						<h2 class="section-title mb-4" style="font-weight: bold"><a href="/news/list" style="text-decoration: none;">인기 뉴스</a></h2>
+						<strong class="product-price"><li th:text="${vo.title}"></li></strong>
+							오랜 팬들에게 라디오의 잔잔한 아날로그 감성을 선물하고자, 
+							    새로운 정규 9집 앨범 ‘Life On Air’를 이야기와 노래가 공존하는 라디오 컨셉트로 기획하게 되었다고 합니다.
+						<p style="margin-top: 3%"><a th:href="@{/news/detail(no=${vo.no})}" class="btn">자세히 보기</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End We Help Section -->
+
+		<!-- Start Blog Section -->
+		<div class="blog-section">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-md-6">
+						<h2 class="mb-4 section-title" style="font-weight: bold"><a href="/board/list" style="text-decoration: none;">인기 게시글</a></h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0" th:each="vo:${bList}">
+						<div class="post-entry">
+							<div class="post-content-entry">
+								<h3><a th:href="@{/board/detail(no=${vo.no})}" th:text="${vo.subject}"></a></h3>
+								<div class="meta">
+									<span>by <a>[[${vo.name}]]</a></span> <span>on <a>[[${vo.regdate}]]</a></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="height: 100px"></div>
+<table class="table">
+  <h3>상세 본 노래</h3>
+  <a th:href="@{/music/detail(gnum=${cvo.gnum})}" th:each="cvo:${cList}">
+    <img th:src="${cvo.image}" style="width:100px;height:100px;margin-left: 3px">
+  </a> 
+</table>				
+			</div>
+
+		</div>
+		<!-- End Blog Section -->	
+</body>
+</html>

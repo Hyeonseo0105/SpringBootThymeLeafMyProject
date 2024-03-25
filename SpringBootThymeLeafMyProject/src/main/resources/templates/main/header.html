@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<style type="text/css">
+#log:hover{
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="/">Music<span>.</span></a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li><a class="nav-link" href="/">Home</a></li>
+						<li><a class="nav-link" href="/music/chart">차트200</a></li>
+						<li><a class="nav-link" href="/music/find">노래검색</a></li>
+						<li><a class="nav-link" href="/news/list">매거진</a></li>
+						<li><a class="nav-link" href="/board/list">커뮤니티</a></li>
+						
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5" th:if="${session.id==null}">
+						<li style="color: white"><a>ID&nbsp;</a><input type=text ref="id" size=15 v-model="id" style="border-radius: 20px"></li>
+        				<li style="color: white"><a>PWD&nbsp;</a><input type=password ref="pwd" size=15 v-model="pwd" style="border-radius: 20px"></li>
+						<li style="margin-left: 10px"><a title="로그인"><img src="../images/user.svg" @click="login()" id="log"></a></li>
+					</ul>
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5" th:if="${session.id!=null}">
+						<li><a class="nav-link" th:text="${session.name}">&nbsp;</a></li>
+						<li style="margin-left: 10px"><a class="nav-link" @click="logout()" title="로그아웃"><i class="fa fa-sign-out" aria-hidden="true" id="log" style="font-size: 20px;color: white;"></i></a></li>
+					</ul>
+				</div>
+			</div>
+				
+		</nav>
+		<!-- End Header/Navigation -->
+<script>
+    // id:[[${id}]]
+    let logApp=Vue.createApp({
+    	data(){
+    		return {
+    			id:'',
+    			pwd:'' 
+    		}
+    	},
+    	methods:{
+    		login(){
+    			if(this.id==="")
+    			{
+    				this.$refs.id.focus()
+    				return
+    			}
+    			if(this.pwd==="")
+    			{
+    				this.$refs.pwd.focus()
+    				return
+    			}
+    			axios.post('/member/login',null,{
+    				params:{
+    					id:this.id,
+    					pwd:this.pwd
+    				}
+    			}).then(res=>{
+    				if(res.data==='NOID')
+    				{
+    				   alert("아이디가 존재하지 않습니다")
+    				   this.id='';
+    				   this.pwd='';
+    				   this.$refs.id.focus();
+    				}
+    				else if(res.data==='NOPWD')
+    				{
+    					alert("비밀번호가 틀립니다")
+    					this.pwd='';
+    					this.$refs.pwd.focus()
+    				}
+    				else
+    				{
+    					location.href="/"
+    				}
+    			})
+    		},
+    		logout(){
+    			axios.get('/member/logout').then(res=>{
+    				if(res.data==='yes')
+    				{
+    				    location.href="/"	
+    				}
+    				else
+    				{
+    				    alert("로그아웃 실패하셨습니다")	
+    				}
+    			})
+    		}
+    	}
+    }).mount('.container')
+   </script>
+</body>
+</html>

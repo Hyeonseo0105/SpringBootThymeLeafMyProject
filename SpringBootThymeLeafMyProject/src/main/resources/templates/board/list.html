@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>커뮤니티</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="blog-section">
+	<div class="container">
+		<div class="row">
+<table class="table">
+        <tr>
+          <td style="border-bottom-width:0px;">
+            <a href="/board/insert" class="btn btn-sm btn-danger">새글</a>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr style="border-bottom-width:thin;border-top-width: thin;height: 40px">
+          <th width=10% class="text-center">번호</th>
+          <th width=40% class="text-center">제목</th>
+          <th width=15% class="text-center">이름</th>
+          <th width=25% class="text-center">작성일</th>
+          <th width=10% class="text-center">조회수</th>
+        </tr>
+        <tr th:each="vo:${list}" style="height: 60px">
+          <th width=10% class="text-center" th:text="${vo.no}"></th>
+          <th width=40%><a th:href="@{/board/detail(no=${vo.no})}" th:text="${vo.subject}" style="text-decoration: none"></a></th>
+          <th width=15% class="text-center" th:text="${vo.name}"></th>
+          <th width=25% class="text-center" th:text="${vo.regdate}"></th>
+          <th width=10% class="text-center" th:text="${vo.hit}"></th>
+        </tr>
+        <tr>
+          <td colspan="5" class="text-center">
+<div style="height: 100px"></div>          
+            <ul style="padding-left: 43%">
+  <li th:if="${startPage>1}" style="float: left;list-style-type: none"><a th:href="@{/board/list(page=${startPage-1})}" style="text-decoration: none;font-size: x-large;font-weight: bold;color: #3b5d50">&laquo;</a></li>
+  <li th:class="${curpage==i?'current':''}" th:each="i:${#numbers.sequence(startPage,endPage)}" style="float:left;list-style-type: none;margin-left: 3%">
+    <a th:href="@{/board/list(page=${i})}" th:text="${i}" style="text-decoration: none;font-size: x-large;color: #3b5d50"></a>
+  </li>
+  <li th:if="${endPage<totalpage}" style="float: left;list-style-type: none;margin-left: 3%"><a th:href="@{/board/list(page=${endPage+1})}" style="text-decoration: none;font-size: x-large;font-weight: bold;color: #3b5d50">&raquo;</a></li>
+</ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

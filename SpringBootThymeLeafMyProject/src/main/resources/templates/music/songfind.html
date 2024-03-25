@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="hero">
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>노래 검색</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="blog-section">
+	<div class="container">
+		<div class="row">
+<form method="post" action="/music/find" style="float: left;width:800px">
+   <input type="text" class="form-control" id="fname" value="검색할 노래를 입력하세요" name="song" style="width:500px;float: left">
+   <button type="submit" class="btn btn-primary-hover-outline" style="width:100px;height:50px;margin-left: 7px;">검색</button>
+</form>
+<div style="height: 80px"></div>
+			<div class="col-20 col-sm-2 col-md-4 mb-5" th:each="vo:${sList}" style="width:33.33333%">
+				<div class="post-entry">
+					<a th:href="@{/music/detail(gnum=${vo.gnum})}" class="post-thumbnail"><img th:src="${vo.image}" class="img-fluid" style="width:287px;height: 287px"></a>
+					<div class="post-content-entry">
+						<h3 style="width:287px"><a th:href="@{/music/detail(gnum=${vo.gnum})}" th:text="${vo.song}"></a></h3>
+						<div class="meta">
+							<span><a th:href="@{/music/detail(gnum=${vo.gnum})}" th:text="${vo.artist}"></a></span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+   <a href="/music/find" class="btn btn-primary-hover-outline" style="width: 200px;margin-left:43%">가수로 검색</a>
+	</div>
+</div>
+</body>
+</html>
